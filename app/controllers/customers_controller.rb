@@ -44,6 +44,7 @@ class CustomersController < ApplicationController
 
   # PATCH/PUT /customers/1 or /customers/1.json
   def update
+    begin
     # respond_to do |format|
     #   if @customer.update(customer_params)
     #     format.html { redirect_to customer_url(@customer), notice: "Customer was successfully updated." }
@@ -59,16 +60,27 @@ class CustomersController < ApplicationController
     else
       render :edit, status: :unprocessable_entity
     end
+    # Not sure I need this, I don't know what I would update that would cause error.
+    rescue ActiveRecord::InvalidForeignKey => e
+      flash.alert = "Error updating customer: #{e.message}"
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   # DELETE /customers/1 or /customers/1.json
   def destroy
-    @customer.destroy
-
-    respond_to do |format|
-      format.html { redirect_to customers_url, notice: "Customer was successfully destroyed." }
-      format.json { head :no_content }
+    begin
+      @customer.destroy
+      redirect_to customers_path, notice: 'Customer was successfully deleted.'
+    # Added so that a customer with orders cannot be deleted. Removed dependent: :destroy on model.
+    rescue ActiveRecord::InvalidForeignKey
+      redirect_to customers_path, alert: 'Unable to delete a customer with existing orders.'
     end
+  end
+
+  def orders
+    @customer = Customer.find(params[:id])
+    @orders = @customer.orders
   end
 
   private
@@ -87,4 +99,5 @@ class CustomersController < ApplicationController
       flash.alert = e.to_s
       redirect_to customers_path
     end
+    
 end
