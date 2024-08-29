@@ -84,7 +84,7 @@ describe "get new_customer_path" do
       expect{delete customer_path(customer_to_delete)}.to change(Customer, :count).by(-1)
       # Check if the response redirects to the index page
       expect(response).to redirect_to(customers_path)
-      expect(response).to have_http_status(:redirect)
+      
       # Check for the flash notice
       expect(flash[:notice]).to eq("Customer was successfully destroyed.")
     
