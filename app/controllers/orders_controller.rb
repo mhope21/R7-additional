@@ -40,13 +40,11 @@ class OrdersController < ApplicationController
   end
 
   def destroy
-    begin
+  
       # @order = Order.find(params[:id])
       @order.destroy
       redirect_to orders_path, notice: 'Order was successfully destroyed.'
-    rescue ActiveRecord::RecordNotFound
-      redirect_to orders_path, alert: 'Order not found.'
-    end
+    
   end
   
 
