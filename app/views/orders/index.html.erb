@@ -1,0 +1,23 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Orders</h1>
+
+<div id="orders">
+  <% if @orders.any? %>
+  <ul>
+    <% @orders.each do |order| %>
+    
+    <%= render order %>
+    <p>
+      <%= link_to "Show this order", order %>
+    </p>
+    
+    <% end %>
+    </ul>
+  <% else %>
+    <p>No orders available.</p>
+  
+  <% end %>
+</div>
+
+<%= link_to "New order", new_order_path %>
