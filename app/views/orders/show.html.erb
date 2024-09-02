@@ -1,11 +1,17 @@
-<p style="color: green"><%= notice %></p>
 
+<p><strong>Order id:</strong> <%= @order.id %></p>
 <%= render @order %>
 
-<div>
-  <%= link_to "Edit this order", edit_order_path(@order) %> |
-  <%= link_to "Back to orders", orders_path %> |
-  <%= link_to "Back to #{@order.customer.full_name} orders", orders_customer_path(@order.customer) %>
+<div class="btn-group">
+  <%= link_to "Edit this order", edit_order_path(@order), class: "btn btn-primary active", aria: { current: "page"} %>
+  <%= link_to "Back to orders", orders_path, class: "btn btn-primary" %>
+  <%= link_to "Back to #{@order.customer.full_name} orders", orders_customer_path(@order.customer), class: "btn btn-primary" %>
 
-  <%= button_to "Destroy this order", @order, method: :delete %>
+  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-bs-order-id="<%= @order.id %>" data-bs-order-customer-name="<%= @order.customer.full_name %>" data-bs-order-product-name="<%= @order.product_name %>" data-bs-order-product-count="<%= @order.product_count %>">
+  Delete
+</button>
+
+
 </div>
+
+<%= render "deleteModal" %>

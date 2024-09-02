@@ -1,10 +1,11 @@
-<h1>Editing customer</h1>
+<h1 class="text-center mb-3">Editing customer</h1>
 
 <%= render "form", customer: @customer %>
 
 <br>
-
-<div>
-  <%= link_to "Show this customer", @customer %> |
-  <%= link_to "Back to customers", customers_path %>
+<div class="d-flex justify-content-center">
+<div class="btn-group mt-3">
+  <%= link_to "Show this customer", @customer, class: "btn btn-primary active", aria: { curent: "page" } %> 
+  <%= link_to "Back to customers", customers_path, class: "btn btn-primary" %>
+</div>
 </div>
