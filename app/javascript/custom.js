@@ -19,13 +19,14 @@ document.addEventListener('DOMContentLoaded', function () {
             const offcanvas = document.querySelector('#offcanvasNavbar');
             if (offcanvas && offcanvas.classList.contains('show') && !offcanvas.contains(event.target) && !toggler.contains(event.target)) {
                 toggler.click(); 
+                console.log('Clicked off');
             }
         });
     }
 
     // Modal for confirming user wants to delete an order
     const deleteModal = document.getElementById('deleteModal');
-    console.log('JavaScript for deleteModal is loaded and running.');
+    console.log('JavaScript for deleteModal is loaded and running.', deleteModal);
     if (deleteModal) {
         deleteModal.addEventListener('show.bs.modal', function (event) {
             const button = event.relatedTarget;
@@ -34,13 +35,14 @@ document.addEventListener('DOMContentLoaded', function () {
             const productCount = button.getAttribute('data-bs-order-product-count');
             const productName = button.getAttribute('data-bs-order-product-name');
 
-            const modalBodyText = deleteModal.querySelector('#modal-body-text');
+            const modalBodyText = deleteModal.getElementById('modal-body-text');
             const deleteButton = deleteModal.querySelector('.delete-confirm-button');
+            console.log('Button pressed')
 
             if (modalBodyText && deleteButton) {
-                modalBodyText.querySelector('#customerName').textContent = customerName;
-                modalBodyText.querySelector('#productCount').textContent = productCount;
-                modalBodyText.querySelector('#productName').textContent = productName;
+                modalBodyText.getElementById('customerName').textContent = customerName;
+                modalBodyText.getElementById('productCount').textContent = productCount;
+                modalBodyText.getElementById('productName').textContent = productName;
 
                 const deleteUrl = `/orders/${orderId}`;
                 deleteButton.setAttribute('href', deleteUrl);
@@ -59,12 +61,14 @@ document.addEventListener('DOMContentLoaded', function () {
         deleteModal.addEventListener('show.bs.modal', function () {
             if (header) {
                 header.classList.add('header-faded');
+                console.log('Header faded');
             }
         });
 
         deleteModal.addEventListener('hide.bs.modal', function () {
             if (header) {
                 header.classList.remove('header-faded');
+                console.log('Header unfaded');
             }
         });
     }
@@ -80,6 +84,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const modalBodyText = deleteCustomerModal.querySelector('#modal-body-text');
             const deleteButton = deleteCustomerModal.querySelector('.delete-confirm-button');
+        console.log('Button pressed');
 
             if (modalBodyText && deleteButton) {
                 modalBodyText.querySelector('#customerName').textContent = customerName;
@@ -109,11 +114,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-   
-    
-});
-
- //Modal for confirming the deletion of an order (custdeleteModal)
+    //Modal for confirming the deletion of an order (custdeleteModal)
  const custdeleteModal = document.getElementById('custdeleteModal');
  console.log('JavaScript for custdeleteModal is loaded and running.', custdeleteModal);
  console.log(custdeleteModal)
@@ -149,4 +150,10 @@ document.addEventListener('DOMContentLoaded', function () {
              console.error('Modal elements not found');
          }
      });
+
+   
+    
+});
+
+ 
 
