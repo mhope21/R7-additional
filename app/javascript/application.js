@@ -5,7 +5,7 @@ import "@hotwired/stimulus-loading";
 import "controllers";
 import "./custom"; 
 import "bootstrap";
-
+import "popper";
 
 
 

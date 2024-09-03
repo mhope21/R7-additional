@@ -35,14 +35,14 @@ document.addEventListener('DOMContentLoaded', function () {
             const productCount = button.getAttribute('data-bs-order-product-count');
             const productName = button.getAttribute('data-bs-order-product-name');
 
-            const modalBodyText = deleteModal.getElementById('modal-body-text');
+            const modalBodyText = deleteModal.querySelector('#modal-body-text');
             const deleteButton = deleteModal.querySelector('.delete-confirm-button');
             console.log('Button pressed')
 
             if (modalBodyText && deleteButton) {
-                modalBodyText.getElementById('customerName').textContent = customerName;
-                modalBodyText.getElementById('productCount').textContent = productCount;
-                modalBodyText.getElementById('productName').textContent = productName;
+                modalBodyText.querySelector('#customerName').textContent = customerName;
+                modalBodyText.querySelector('#productCount').textContent = productCount;
+                modalBodyText.querySelector('#productName').textContent = productName;
 
                 const deleteUrl = `/orders/${orderId}`;
                 deleteButton.setAttribute('href', deleteUrl);
