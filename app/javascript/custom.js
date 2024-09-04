@@ -1,5 +1,5 @@
-document.addEventListener('DOMContentLoaded', function () {
-    console.log('Custom JavaScript is loaded and running.');
+document.addEventListener('turbo:load', function () {
+    console.log('Custom JavaScript is loaded and running after Turbo load.');
 
     // Select the toggler button
     const toggler = document.querySelector('.navbar-toggler');
@@ -54,19 +54,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.error('Modal body text or delete button not found');
             }
         });
-
-        const header = document.querySelector('.header-container');
-        deleteModal.addEventListener('show.bs.modal', function () {
-            if (header) {
-                header.classList.add('header-faded');
-            }
-        });
-
-        deleteModal.addEventListener('hide.bs.modal', function () {
-            if (header) {
-                header.classList.remove('header-faded');
-            }
-        });
     }
 
     // Modal for confirming the deletion of a customer
@@ -94,59 +81,37 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.error('Modal body text or delete button not found');
             }
         });
+    }
 
-        const header = document.querySelector('.header-container');
-        deleteCustomerModal.addEventListener('show.bs.modal', function () {
-            if (header) {
-                header.classList.add('header-faded');
-            }
-        });
+    // Modal for confirming the deletion of an order (custdeleteModal)
+    const custdeleteModal = document.getElementById('custdeleteModal');
+    if (custdeleteModal) {
+        custdeleteModal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
+            const orderId = button.getAttribute('data-bs-order-id');
+            const customerName = button.getAttribute('data-bs-order-customer-name');
+            const productCount = button.getAttribute('data-bs-order-product-count');
+            const productName = button.getAttribute('data-bs-order-product-name');
 
-        deleteCustomerModal.addEventListener('hide.bs.modal', function () {
-            if (header) {
-                header.classList.remove('header-faded');
+            const modalBodyText = custdeleteModal.querySelector('#modal-body-text');
+            const deleteButton = custdeleteModal.querySelector('.delete-confirm-button');
+
+            if (modalBodyText && deleteButton) {
+                modalBodyText.querySelector('#order-customer-name').textContent = customerName;
+                modalBodyText.querySelector('#order-product-count').textContent = productCount;
+                modalBodyText.querySelector('#order-product-name').textContent = productName;
+
+                const deleteUrl = `/orders/${orderId}`;
+                deleteButton.setAttribute('href', deleteUrl);
+
+                console.log('Order ID:', orderId);
+                console.log('Customer Name:', customerName);
+                console.log('Product Count:', productCount);
+                console.log('Product Name:', productName);
+                console.log('Delete URL:', deleteUrl);
+            } else {
+                console.error('Modal elements not found');
             }
         });
     }
-
-   
-    
 });
-
- //Modal for confirming the deletion of an order (custdeleteModal)
- const custdeleteModal = document.getElementById('custdeleteModal');
- console.log('JavaScript for custdeleteModal is loaded and running.', custdeleteModal);
- console.log(custdeleteModal)
- console.log('delete modal custom:', custdeleteModal)
-     custdeleteModal.addEventListener('show.bs.modal', function (event) {
-         const button = event.relatedTarget;
-         const orderId = button.getAttribute('data-bs-order-id');
-         const customerName = button.getAttribute('data-bs-order-customer-name');
-         const productCount = button.getAttribute('data-bs-order-product-count');
-         const productName = button.getAttribute('data-bs-order-product-name');
-         
-     const modalBodyText = custdeleteModal.querySelector('#modal-body-text');
-     const customerNameSpan = modalBodyText.querySelector('#order-customer-name');
-     const productCountSpan = modalBodyText.querySelector('#order-product-count');
-     const productNameSpan = modalBodyText.querySelector('#order-product-name');
-     const deleteButton = custdeleteModal.querySelector('.delete-confirm-button');
-     
-     if (customerNameSpan && productCountSpan && productNameSpan && deleteButton) {
-         customerNameSpan.textContent = customerName;
-         productCountSpan.textContent = productCount;
-         productNameSpan.textContent = productName;
-             
-             // Set the href for the delete button
-             const deleteUrl = `/orders/${orderId}`;
-             deleteButton.setAttribute('href', deleteUrl);
-             
-             console.log('Order ID:', orderId);
-             console.log('Customer Name:', customerName);
-             console.log('Product Count:', productCount);
-             console.log('Product Name:', productName);
-             console.log('Delete URL:', deleteUrl);
-         } else {
-             console.error('Modal elements not found');
-         }
-     });
-

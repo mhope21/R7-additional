@@ -1,16 +1,15 @@
-
-<div class="modal fade" id="deleteCustomerModal" tabindex="-1" aria-labelledby="deleteCustomerModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteCustomerModal<%= customer.id %>" tabindex="-1" aria-labelledby="deleteCustomerModalLabel<%= customer.id %>" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="deleteCustomerModalLabel">Delete Customer</h5>
+        <h5 class="modal-title" id="deleteCustomerModalLabel<%= customer.id %>">Delete Customer</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p id="modal-body-text">Are you sure you want to delete the customer: <span id="customerName"></span>?</p>
+        <p>Are you sure you want to delete the customer: <strong><%= customer.full_name %></strong>?</p>
       </div>
       <div class="modal-footer">
-        <a href="#" class="btn btn-danger delete-confirm-button">Delete</a>
+        <%= link_to 'Delete', customer_path(customer), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
       </div>
     </div>

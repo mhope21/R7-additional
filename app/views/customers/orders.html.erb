@@ -19,7 +19,7 @@
           <div class="btn-group">
           <%= link_to 'Show', order_path(order), class: "btn btn-primary active", aria: {current: "page"} %> 
           <%= link_to 'Edit', edit_order_path(order), class: "btn btn-primary" %> 
-          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#custdeleteModal" data-bs-order-id="<%= order.id %>" data-bs-order-customer-name="<%= order.customer.full_name %>" data-bs-order-product-name="<%= order.product_name %>" data-bs-order-product-count="<%= order.product_count%>">
+          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-bs-order-id="<%= order.id %>" data-bs-order-customer-name="<%= order.customer.full_name %>" data-bs-order-product-name="<%= order.product_name %>" data-bs-order-product-count="<%= order.product_count%>">
                   Delete
                   </button>
           
@@ -31,4 +31,4 @@
 </table>
 
 <%= link_to 'Back to Customers', customers_path, class: "btn btn-primary" %>
-<%= render "custdeleteModal" %>
+<%= render "partials/deleteModal" %>
