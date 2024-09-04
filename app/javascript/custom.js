@@ -96,6 +96,8 @@ document.addEventListener('turbo:load', function () {
             const modalBodyText = custdeleteModal.querySelector('#modal-body-text');
             const deleteButton = custdeleteModal.querySelector('.delete-confirm-button');
 
+            console.log('I am being used.')
+
             if (modalBodyText && deleteButton) {
                 modalBodyText.querySelector('#order-customer-name').textContent = customerName;
                 modalBodyText.querySelector('#order-product-count').textContent = productCount;
