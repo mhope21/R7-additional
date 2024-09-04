@@ -23,16 +23,13 @@
         <td><%= customer.orders.count %></td>
         <td>
           <div class="btn-group">
-          <%= link_to 'Show Customer', customer_path(customer), class: "btn btn-primary active", aria: { current: "page"} %>
-          <%= link_to 'Show Customer Orders', orders_customer_path(customer), class: "btn btn-primary" %>
-          <%= link_to 'Edit', edit_customer_path(customer), class: "btn btn-primary" %>
-          <button type="button" class="btn btn-danger"
-  data-bs-toggle="modal"
-  data-bs-target="#deleteCustomerModal"
-  data-bs-customer-id="<%= customer.id %>"
-  data-bs-customer-name="<%= customer.full_name %>">
-  Delete
-</button>
+            <%= link_to 'Show Customer', customer_path(customer), class: "btn btn-primary active", aria: { current: "page"} %>
+            <%= link_to 'Show Customer Orders', orders_customer_path(customer), class: "btn btn-primary" %>
+            <%= link_to 'Edit', edit_customer_path(customer), class: "btn btn-primary" %>
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteCustomerModal<%= customer.id %>">
+              Delete
+            </button>
+            <%= render 'customers/deleteCustomerModal', customer: customer %>
           </div>
         </td>
       </tr>
@@ -42,5 +39,3 @@
 </table>
 
 </div>
-
-<%= render "deleteCustomerModal" %>
