@@ -1,23 +1,42 @@
-<p style="color: green"><%= notice %></p>
 
-<h1>Orders</h1>
+<h1 class="text-center text-decoration-underline">Orders</h1>
 
-<div id="orders">
-  <% if @orders.any? %>
-  <ul>
-    <% @orders.each do |order| %>
-    
-    <%= render order %>
-    <p>
-      <%= link_to "Show this order", order %>
-    </p>
-    
-    <% end %>
-    </ul>
-  <% else %>
-    <p>No orders available.</p>
+<%= link_to "New order", new_order_path, class: "btn btn-primary" %>
+
+<div class="container text-center mt-5">
+  <div class="row">
+      <% if @orders.any? %>
+        <% @orders.each do |order| %>
+        <div class="col-md-4 mb-4">
+          <div class="card border-dark">
+            <div class="card-title mt-3"><strong><%= order.product_name %></strong></div>
+            <div class="card-body">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Customer: <%= order.customer.full_name %></li>
+                <li class="list-group-item">Product Count: <%= order.product_count %></li>
+                <li class="list-group-item">
+                  <%= link_to "Edit", edit_order_path(order), class: "btn btn-primary" %>
+                  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-bs-order-id="<%= order.id %>" data-bs-order-customer-name="<%= order.customer.full_name %>" data-bs-order-product-name="<%= order.product_name %>" data-bs-order-product-count="<%= order.product_count %>">
+                  Delete
+                  </button>
+
+
+                </li>
+              </ul>
+              
+            </div>
+          </div>
+        </div>
+          
+        <% end %>
+        
+      <% else %>
+        <p>No orders available.</p>
   
-  <% end %>
+      <% end %>
+    
+  </div>
 </div>
 
-<%= link_to "New order", new_order_path %>
+<%= render "partials/deleteModal" %>
+

@@ -1,10 +1,17 @@
-<p style="color: green"><%= notice %></p>
 
+<div class="mt-0 pt-0">
+  <h1 class="text-center">Customer Details</h1>
 <%= render @customer %>
 
-<div>
-  <%= link_to "Edit this customer", edit_customer_path(@customer) %> |
-  <%= link_to "Back to customers", customers_path %>
+<div class="btn-group">
+  <%= link_to "Edit this customer", edit_customer_path(@customer), class: "btn btn-primary active", aria: {current: "page"} %>
+  <%= link_to "Back to customers", customers_path, class: "btn btn-primary" %>
 
-  <%= button_to "Destroy this customer", @customer, method: :delete %>
+<%= link_to 'Delete', '#', class: 'btn btn-danger', data: { bs_toggle: 'modal', bs_target: "#deleteCustomerModal#{@customer.id}" } %>
+
+<%= render 'customers/deleteCustomerModal', customer: @customer %>
+<% Rails.logger.info "Customer ID: #{@customer.id}" %>
+<% Rails.logger.info "Customer Name: #{@customer.full_name}" %>
+
+</div>
 </div>

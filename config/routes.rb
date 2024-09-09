@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  root to: 'customers#index'
+  get '/home', to:'home#index'
+  root to: 'home#index'
   resources :customers do
     member do
       get 'orders'

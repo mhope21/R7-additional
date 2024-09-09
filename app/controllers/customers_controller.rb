@@ -1,6 +1,7 @@
 class CustomersController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :catch_not_found
   before_action :set_customer, only: %i[ show edit update destroy ]
+  
 
   # GET /customers or /customers.json
   def index
@@ -83,6 +84,8 @@ class CustomersController < ApplicationController
     def set_customer
       @customer = Customer.find(params[:id])
     end
+
+    
 
     # Only allow a list of trusted parameters through.
     def customer_params

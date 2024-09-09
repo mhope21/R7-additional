@@ -6,14 +6,118 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
     <%= javascript_importmap_tags %>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/b9c41a3878.js" crossorigin="anonymous"></script>
+    
+
+
   </head>
 
   <body>
-    <% if flash[:alert].present? %>
-    <p class="my_alert"><%= flash[:alert] %></p>
-    <% end %>
-    <%= yield %>
+        
+   <header class="header-container text-white shadow-lg">
+    <nav class="navbar fixed-top">
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 ">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/home"><i class="fa-solid fa-house me-2"></i>Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="customersDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-user me-2"></i>Customers</a>
+                        <ul class="dropdown-menu" aria-labelledby="customersDropdown">
+                          <li><a class="dropdown-item" href="<%= new_customer_path %>">Add New Customer</a></li>
+                          <li><a class="dropdown-item" href="/customers">Customer List</a></li>
+                          <li class="ms-3"><strong>Customer Details by Name:</strong></li>
+                          <% @customers.each do |customer| %>
+                          <li><a class="dropdown-item" href="<%= customer_path(customer) %>"><%= customer.full_name %></a></li>
+                          <% end %>
+                        </ul>
+                        
+                    </li>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="ordersDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-truck-fast me-2"></i>Orders</a>
+                         <ul class="dropdown-menu" aria-labelledby="ordersDropdown">
+                          <li><a class="dropdown-item" href="<%= new_order_path %>">Add New Order</a></li>
+                          <li><a class="dropdown-item" href="/orders">Orders List</a></li>
+                          <li class="ms-3"><strong>Orders by Id:</strong></li>
+                          <% @orders.each do |order| %>
+                          <li><a class="dropdown-item" href="<%= order_path(order) %>"><%= order.id %></a></li>
+                          <% end %>
+                        </ul>
+                        
+                    </li>
+                   </ul>
+            </div>
+        </div>
+    </nav>
+    <h1 class="mt-3 rubik-mono-one-regular">Kasper's Emporium of Trinkets and Oddities</h1>
+    <h4 class="mt-2">"Delighting Collectors of the Unusual Since 1899"</h4>
+</header>
+
+<div class="container mt-5" style="width: 40%">
+<% if flash[:notice] %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <%= flash[:notice] %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% end %>
+
+  <% if flash[:alert] %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <%= flash[:alert] %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% end %>
+  </div>
+
+<main class="container mt-5 mb-5 pt-5 pb-5">
+  <%= yield %>
+
+</main>
+
+<footer class="footer mt-auto py-3 bg-dark text-white container-fluid">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-4 me-5">
+        <h5>About Kasper's Emporium</h5>
+        <p>
+          Kasper's Emporium of Trinkets and Oddities offers a unique collection of movie memorabilia, 
+          celebrity-inspired items, and curious artifacts from the world of entertainment. 
+          Discover treasures that tell a story.
+        </p>
+      </div>
+      
+      <div class="col-md-3 me-4">
+        <h5>Contact Us</h5>
+        <p>Email: <a href="mailto:info@kaspers-emporium.com" class="text-white">info@kaspers-emporium.com</a></p>
+        <p>Phone: +1 (555) 123-4567</p>
+        <p>Address: 123 Movie Lane, Hollywood, CA 90210</p>
+      </div>
+      
+      <div class="col-md-4">
+        <h5>Follow Us</h5>
+        <a href="#" class="text-white me-3"><i class="fa-brands fa-facebook"></i>Facebook</a>
+        <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i> Twitter</a>
+        <a href="#" class="text-white"><i class="fab fa-instagram"></i> Instagram</a>
+      </div>
+    </div>
+  </div>
+</footer>
   </body>
 </html>
